@@ -9,7 +9,7 @@
 	],
 	"contact": {
 		"homepage": "https://cityheroes.ru/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/korperka/CityHeroesMod"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/cityheroes/icon.png",
