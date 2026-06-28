@@ -11,7 +11,7 @@ public class ClientPacketRegistry {
                 (payload, context) -> {
                     context.client().execute(() -> {
                         context.client().gui.setScreen(
-                                new DialogScreen(payload.dialogId())
+                                new DialogScreen(payload.dialogId(), payload.entityId())
                         );
                     });
 
