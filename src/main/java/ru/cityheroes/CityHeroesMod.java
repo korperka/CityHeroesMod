@@ -1,13 +1,9 @@
 package ru.cityheroes;
 
 import net.fabricmc.api.ModInitializer;
-
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.resources.Identifier;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.cityheroes.packet.OpenDialogPayload;
 import ru.cityheroes.registry.ModEntityTypes;
 import ru.cityheroes.registry.ServerPacketRegistry;
 

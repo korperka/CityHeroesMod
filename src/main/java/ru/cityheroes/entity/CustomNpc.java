@@ -25,7 +25,7 @@ public class CustomNpc extends PathfinderMob {
     @Override
     public @NonNull InteractionResult mobInteract(Player player, @NonNull InteractionHand hand) {
         if(player instanceof ServerPlayer serverPlayer) {
-            ServerPlayNetworking.send(serverPlayer, new OpenDialogPayload("test", getId()));
+            ServerPlayNetworking.send(serverPlayer, new OpenDialogPayload("intro", getId()));
         }
         return InteractionResult.SUCCESS;
     }

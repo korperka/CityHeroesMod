@@ -2,6 +2,7 @@ package ru.cityheroes.client;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import ru.cityheroes.client.dialogs.DialogManager;
 import ru.cityheroes.client.entity.render.CustomNpcRenderer;
 import ru.cityheroes.client.registry.ClientPacketRegistry;
 import ru.cityheroes.registry.ModEntityTypes;
@@ -14,5 +15,7 @@ public class CityHeroesModClient implements ClientModInitializer {
 				ModEntityTypes.CUSTOM_NPC,
 				CustomNpcRenderer::new
 		);
+
+		DialogManager.loadDialogs();
 	}
 }

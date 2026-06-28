@@ -1,58 +1,30 @@
 package ru.cityheroes.client.ui.render;
 
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import org.w3c.dom.Text;
-import ru.cityheroes.CityHeroesMod;
-import ru.cityheroes.client.entity.render.CustomNpcRenderer;
+import ru.cityheroes.client.dialogs.DialogManager;
 import ru.cityheroes.client.enums.Textures;
 import ru.cityheroes.client.ui.widgets.TypewriterWidget;
+
+import static ru.cityheroes.client.ui.render.DialogLayout.*;
 
 public class DialogScreen extends Screen {
     private TypewriterWidget text;
     private int left;
     private int top;
     private final int entityId;
-
-    private static final int DIALOG_WIDTH = 360; //in-game dialog texture sizes
-    private static final int DIALOG_HEIGHT = 250;
-    private static final int TEXTURE_WIDTH = 180; //original dialog texture sizes
-    private static final int TEXTURE_HEIGHT = 125;
-    private static final int TEXTBOX_ORIGINAL_WIDTH = 110; //original sizes of textbox
-    private static final int TEXTBOX_ORIGINAL_HEIGHT = 50;
-    private static final int TEXTBOX_ORIGINAL_X = 60;
-    private static final int TEXTBOX_ORIGINAL_Y = 20;
-
-    private static final int AVATAR_ORIGINAL_X = 13;
-    private static final int AVATAR_ORIGINAL_Y = 18;
-    private static final int AVATAR_ORIGINAL_WIDTH = 43;
-    private static final int AVATAR_ORIGINAL_HEIGHT = 57;
-
-    private static final float SCALE_X = (float) DIALOG_WIDTH / TEXTURE_WIDTH;
-    private static final float SCALE_Y = (float) DIALOG_HEIGHT / TEXTURE_HEIGHT;
-
-    private static final int DIALOG_TEXTBOX_WIDTH = Math.round(TEXTBOX_ORIGINAL_WIDTH * SCALE_X);
-    private static final int DIALOG_TEXTBOX_HEIGHT = Math.round(TEXTBOX_ORIGINAL_HEIGHT * SCALE_Y);
-    private static final int DIALOG_TEXTBOX_X = Math.round(TEXTBOX_ORIGINAL_X * SCALE_X);
-    private static final int DIALOG_TEXTBOX_Y = Math.round(TEXTBOX_ORIGINAL_Y * SCALE_Y);
-
-    private static final int AVATAR_X = Math.round(AVATAR_ORIGINAL_X * SCALE_X);
-    private static final int AVATAR_Y = Math.round(AVATAR_ORIGINAL_Y * SCALE_Y);
-    private static final int AVATAR_WIDTH = Math.round(AVATAR_ORIGINAL_WIDTH * SCALE_X);
-    private static final int AVATAR_HEIGHT = Math.round(AVATAR_ORIGINAL_HEIGHT * SCALE_Y);
-
+    private final String dialogId;
 
     public DialogScreen(String dialogId, int entityId) {
         super(Component.empty());
 
+        this.dialogId = dialogId;
         this.entityId = entityId;
     }
 
@@ -63,14 +35,15 @@ public class DialogScreen extends Screen {
         left = (width - DIALOG_WIDTH) / 2;
         top = (height - DIALOG_HEIGHT) / 2;
 
-        text = new TypewriterWidget(left + DIALOG_TEXTBOX_X, top + DIALOG_TEXTBOX_Y, DIALOG_TEXTBOX_WIDTH, DIALOG_TEXTBOX_HEIGHT, Component.literal("а".repeat(1000)));
+        text = new TypewriterWidget(left + TEXTBOX_X, top + TEXTBOX_Y, TEXTBOX_WIDTH, TEXTBOX_HEIGHT,
+                //TODO нормально сделать ёпта
+                DialogManager.getDialogs().get(dialogId).getPhrases().stream().map(s -> (Component) Component.literal(s)).toList());
         addRenderableWidget(text);
     }
 
     @Override
     public void tick() {
         super.tick();
-
         text.tick();
     }
 
@@ -114,5 +87,18 @@ public class DialogScreen extends Screen {
         );
 
         super.extractRenderState(graphics, mouseX, mouseY, a);
+    }
+
+    @Override
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        if(event.button() == 0) {
+            text.nextPhrase();
+        }
+        else if(event.button() == 1) {
+            text.previousPhrase();
+        }
+        else return super.mouseClicked(event, doubleClick);
+
+        return true;
     }
 }
