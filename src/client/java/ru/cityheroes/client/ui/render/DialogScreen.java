@@ -31,17 +31,23 @@ public class DialogScreen extends Screen {
     private static final int TEXTBOX_ORIGINAL_X = 60;
     private static final int TEXTBOX_ORIGINAL_Y = 20;
 
+    private static final int AVATAR_ORIGINAL_X = 13;
+    private static final int AVATAR_ORIGINAL_Y = 18;
+    private static final int AVATAR_ORIGINAL_WIDTH = 43;
+    private static final int AVATAR_ORIGINAL_HEIGHT = 57;
+
     private static final float SCALE_X = (float) DIALOG_WIDTH / TEXTURE_WIDTH;
     private static final float SCALE_Y = (float) DIALOG_HEIGHT / TEXTURE_HEIGHT;
 
-    private static final int DIALOG_TEXTBOX_WIDTH =
-            Math.round(TEXTBOX_ORIGINAL_WIDTH * SCALE_X);
-    private static final int DIALOG_TEXTBOX_HEIGHT =
-            Math.round(TEXTBOX_ORIGINAL_HEIGHT * SCALE_Y);
-    private static final int DIALOG_TEXTBOX_X =
-            Math.round(TEXTBOX_ORIGINAL_X * SCALE_X);
-    private static final int DIALOG_TEXTBOX_Y =
-            Math.round(TEXTBOX_ORIGINAL_Y * SCALE_Y);
+    private static final int DIALOG_TEXTBOX_WIDTH = Math.round(TEXTBOX_ORIGINAL_WIDTH * SCALE_X);
+    private static final int DIALOG_TEXTBOX_HEIGHT = Math.round(TEXTBOX_ORIGINAL_HEIGHT * SCALE_Y);
+    private static final int DIALOG_TEXTBOX_X = Math.round(TEXTBOX_ORIGINAL_X * SCALE_X);
+    private static final int DIALOG_TEXTBOX_Y = Math.round(TEXTBOX_ORIGINAL_Y * SCALE_Y);
+
+    private static final int AVATAR_X = Math.round(AVATAR_ORIGINAL_X * SCALE_X);
+    private static final int AVATAR_Y = Math.round(AVATAR_ORIGINAL_Y * SCALE_Y);
+    private static final int AVATAR_WIDTH = Math.round(AVATAR_ORIGINAL_WIDTH * SCALE_X);
+    private static final int AVATAR_HEIGHT = Math.round(AVATAR_ORIGINAL_HEIGHT * SCALE_Y);
 
 
     public DialogScreen(String dialogId, int entityId) {
@@ -69,6 +75,11 @@ public class DialogScreen extends Screen {
     }
 
     @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
+
+    @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
         Minecraft minecraft = Minecraft.getInstance();
 
@@ -85,24 +96,21 @@ public class DialogScreen extends Screen {
                 DIALOG_HEIGHT
         );
 
-        int x = left + 26;
-        int y = top + 28;
-        int width = 86;
-        int height = 150;
-
+        int x = left + AVATAR_X;
+        int y = top + AVATAR_Y;
         graphics.entity(
                 minecraft.getEntityRenderDispatcher()
-                        .extractEntity(minecraft.level.getEntity(entityId), 1.0F),
+                        .extractEntity(minecraft.level.getEntity(entityId), 1),
                 45,
-                new Vector3f(0, 1, 0),
+                new Vector3f(0, 1.22f, 0),
                 new Quaternionf()
                         .rotateY((float) Math.PI)
                         .rotateZ((float) Math.PI),
                 null,
                 x,
                 y,
-                x + width,
-                y + height
+                x + AVATAR_WIDTH,
+                y + AVATAR_HEIGHT
         );
 
         super.extractRenderState(graphics, mouseX, mouseY, a);
