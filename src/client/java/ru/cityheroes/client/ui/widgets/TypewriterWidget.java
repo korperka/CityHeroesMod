@@ -5,6 +5,7 @@ import net.minecraft.client.gui.components.MultiLineTextWidget;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.sounds.SoundEvents;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
@@ -54,6 +55,16 @@ public class TypewriterWidget extends MultiLineTextWidget {
     public void tick() {
         if(visibleCharacters < getCurrentPhrase().getString().length()) {
             visibleCharacters++;
+
+            Minecraft mc = Minecraft.getInstance();
+            if (visibleCharacters % 2 != 0) return;
+            if (mc.player == null) return;
+
+            mc.player.playSound(
+                    SoundEvents.UI_BUTTON_CLICK.value(),
+                    0.15F,
+                    1.8F + mc.level.getRandom().nextFloat() * 0.2F
+            );
         }
     }
 

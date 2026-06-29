@@ -11,6 +11,8 @@ import net.minecraft.world.entity.player.PlayerModelType;
 import net.minecraft.world.entity.player.PlayerSkin;
 import ru.cityheroes.CityHeroesMod;
 import ru.cityheroes.entity.CustomNpc;
+import ru.cityheroes.quests.NpcDto;
+import ru.cityheroes.quests.NpcManager;
 
 public class CustomNpcRenderer extends LivingEntityRenderer<CustomNpc, AvatarRenderState, PlayerModel> {
     //TODO
@@ -34,7 +36,15 @@ public class CustomNpcRenderer extends LivingEntityRenderer<CustomNpc, AvatarRen
     @Override
     public void extractRenderState(CustomNpc entity, AvatarRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
-        state.skin = NPC_SKIN;
+
+        NpcDto npcDto = NpcManager.getNpc(entity.getNpcId());
+        state.skin = PlayerSkin.insecure(
+                new ClientAsset.ResourceTexture(
+                npcDto == null ? Identifier.withDefaultNamespace("textures/entity/steve.png") : Identifier.parse(npcDto.getSkinPath())),
+                null,
+                null,
+                npcDto == null ? PlayerModelType.WIDE : npcDto.getModelType()
+        );
     }
 
     @Override

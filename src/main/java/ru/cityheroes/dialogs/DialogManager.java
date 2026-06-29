@@ -1,4 +1,4 @@
-package ru.cityheroes.client.dialogs;
+package ru.cityheroes.dialogs;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,7 +7,6 @@ import ru.cityheroes.CityHeroesMod;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,10 @@ import java.util.Map;
 public class DialogManager {
     @Getter
     private static final Map<String, Dialog> dialogs = new HashMap<>();
+
+    public static Dialog getDialog(String id) {
+        return dialogs.get(id);
+    }
 
     public static void loadDialogs() {
         ObjectMapper mapper = new ObjectMapper();

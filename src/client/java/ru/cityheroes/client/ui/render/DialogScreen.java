@@ -8,9 +8,9 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import ru.cityheroes.client.dialogs.DialogManager;
 import ru.cityheroes.client.enums.Textures;
 import ru.cityheroes.client.ui.widgets.TypewriterWidget;
+import ru.cityheroes.dialogs.DialogManager;
 
 import static ru.cityheroes.client.ui.render.DialogLayout.*;
 
@@ -61,8 +61,8 @@ public class DialogScreen extends Screen {
                 Textures.DIALOG_TEXTURE,
                 left,
                 top,
-                0f,
-                0f,
+                0,
+                0,
                 DIALOG_WIDTH,
                 DIALOG_HEIGHT,
                 DIALOG_WIDTH,

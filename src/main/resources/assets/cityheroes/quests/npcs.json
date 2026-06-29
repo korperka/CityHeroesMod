@@ -1,0 +1,30 @@
+[
+  {
+    "id": "iamkoldun",
+    "displayName": "Ай эм колдун",
+    "skinPath": "cityheroes:entity/iamkoldun",
+    "modelType": "WIDE",
+    "quests": [
+      "mushrooms",
+      "repair_shop"
+    ]
+  },
+  {
+    "id": "goracio_newport",
+    "displayName": "Горацио Ньюпорт",
+    "skinPath": "cityheroes:entity/goracionewport",
+    "modelType": "SLIM",
+    "quests": [
+      "logs"
+    ]
+  },
+  {
+    "id": "farmer",
+    "displayName": "Фермер Иван",
+    "skinPath": "cityheroes:entity/korperka",
+    "modelType": "SLIM",
+    "quests": [
+      "bread"
+    ]
+  }
+]

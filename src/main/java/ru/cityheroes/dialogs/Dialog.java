@@ -1,4 +1,4 @@
-package ru.cityheroes.client.dialogs;
+package ru.cityheroes.dialogs;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,4 +9,5 @@ import java.util.List;
 public class Dialog {
     private String id;
     private List<String> phrases;
+    private String questId;
 }
