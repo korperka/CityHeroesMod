@@ -22,7 +22,7 @@ public class Quest {
     private QuestState state;
     private Map<QuestState, String> dialogs;
 
-    public boolean isCompleted(Player player) {
+    public boolean checkCompleted(Player player) {
         return objective.checkCompleted(player);
     }
 

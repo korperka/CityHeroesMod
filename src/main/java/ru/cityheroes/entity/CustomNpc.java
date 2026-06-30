@@ -74,12 +74,13 @@ public class CustomNpc extends PathfinderMob {
             if (state == QuestState.IN_PROGRESS) {
                 Quest quest = QuestManager.getQuestById(questId);
 
-                if(quest.isCompleted(player)) {
+                if(quest.checkCompleted(player)) {
                     data.putState(questId, QuestState.COMPLETED);
                     ServerPlayNetworking.send(serverPlayer, new HideToastPayload(questId));
                 }
 
                 openDialog(serverPlayer, quest);
+
                 return InteractionResult.SUCCESS;
             }
 
