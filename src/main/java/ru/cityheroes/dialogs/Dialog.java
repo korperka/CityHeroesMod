@@ -9,5 +9,4 @@ import java.util.List;
 public class Dialog {
     private String id;
     private List<String> phrases;
-    private String questId;
 }

@@ -9,15 +9,13 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.Permission;
 import net.minecraft.server.permissions.PermissionLevel;
-import net.minecraft.server.permissions.PermissionSet;
 import net.minecraft.world.entity.EntitySpawnReason;
 import ru.cityheroes.entity.CustomNpc;
-import ru.cityheroes.quests.NpcManager;
+import ru.cityheroes.npc.NpcManager;
 import ru.cityheroes.registry.ModEntityTypes;
 
 public final class CityHeroesCommands {

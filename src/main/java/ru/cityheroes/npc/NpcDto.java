@@ -1,8 +1,6 @@
-package ru.cityheroes.quests;
+package ru.cityheroes.npc;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.minecraft.world.entity.player.PlayerModelType;
 

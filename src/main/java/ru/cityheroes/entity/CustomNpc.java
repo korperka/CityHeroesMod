@@ -1,7 +1,5 @@
 package ru.cityheroes.entity;
 
-import lombok.Getter;
-import lombok.Setter;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,10 +18,15 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.NonNull;
 import ru.cityheroes.data.ModAttachments;
+import ru.cityheroes.data.PlayerQuestData;
 import ru.cityheroes.dialogs.Dialog;
+import ru.cityheroes.npc.NpcDto;
+import ru.cityheroes.npc.NpcManager;
+import ru.cityheroes.packet.HideToastPayload;
 import ru.cityheroes.packet.OpenDialogPayload;
-import ru.cityheroes.packet.ShowToastPayload;
-import ru.cityheroes.quests.*;
+import ru.cityheroes.quests.Quest;
+import ru.cityheroes.quests.QuestManager;
+import ru.cityheroes.quests.QuestState;
 
 import java.util.List;
 
@@ -71,8 +74,9 @@ public class CustomNpc extends PathfinderMob {
             if (state == QuestState.IN_PROGRESS) {
                 Quest quest = QuestManager.getQuestById(questId);
 
-                if (quest.isCompleted(player)) {
+                if(quest.isCompleted(player)) {
                     data.putState(questId, QuestState.COMPLETED);
+                    ServerPlayNetworking.send(serverPlayer, new HideToastPayload(questId));
                 }
 
                 openDialog(serverPlayer, quest);
@@ -87,15 +91,6 @@ public class CustomNpc extends PathfinderMob {
         if (availableQuestId != null) {
             Quest quest = QuestManager.getQuestById(availableQuestId);
             openDialog(serverPlayer, quest);
-            data.putState(availableQuestId, QuestState.IN_PROGRESS);
-
-            ServerPlayNetworking.send(
-                    serverPlayer,
-                    new ShowToastPayload(
-                            "Текущий квест:",
-                            quest.getName()
-                    )
-            );
         }
 
         return InteractionResult.SUCCESS;

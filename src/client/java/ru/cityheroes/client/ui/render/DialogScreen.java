@@ -37,6 +37,7 @@ public class DialogScreen extends Screen {
 
         text = new TypewriterWidget(left + TEXTBOX_X, top + TEXTBOX_Y, TEXTBOX_WIDTH, TEXTBOX_HEIGHT,
                 //TODO нормально сделать ёпта
+                dialogId,
                 DialogManager.getDialogs().get(dialogId).getPhrases().stream().map(s -> (Component) Component.literal(s)).toList());
         addRenderableWidget(text);
     }

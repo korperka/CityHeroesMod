@@ -11,8 +11,8 @@ import net.minecraft.world.entity.player.PlayerModelType;
 import net.minecraft.world.entity.player.PlayerSkin;
 import ru.cityheroes.CityHeroesMod;
 import ru.cityheroes.entity.CustomNpc;
-import ru.cityheroes.quests.NpcDto;
-import ru.cityheroes.quests.NpcManager;
+import ru.cityheroes.npc.NpcDto;
+import ru.cityheroes.npc.NpcManager;
 
 public class CustomNpcRenderer extends LivingEntityRenderer<CustomNpc, AvatarRenderState, PlayerModel> {
     //TODO

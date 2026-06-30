@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.cityheroes.command.CityHeroesCommands;
 import ru.cityheroes.dialogs.DialogManager;
-import ru.cityheroes.quests.NpcManager;
+import ru.cityheroes.npc.NpcManager;
 import ru.cityheroes.quests.QuestManager;
 import ru.cityheroes.registry.ModEntityTypes;
 import ru.cityheroes.registry.ServerPacketRegistry;

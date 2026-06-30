@@ -1,9 +1,10 @@
-package ru.cityheroes.quests;
+package ru.cityheroes.npc;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import ru.cityheroes.CityHeroesMod;
+import ru.cityheroes.quests.QuestManager;
 
 import java.io.IOException;
 import java.io.InputStream;

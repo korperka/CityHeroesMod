@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.minecraft.world.entity.player.Player;
 import ru.cityheroes.data.ModAttachments;
+import ru.cityheroes.data.PlayerQuestData;
 import ru.cityheroes.dialogs.Dialog;
 import ru.cityheroes.dialogs.DialogManager;
 

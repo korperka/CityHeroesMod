@@ -7,22 +7,18 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import ru.cityheroes.CityHeroesMod;
 
-public record ShowToastPayload(String title, String message, String questId) implements CustomPacketPayload {
-    public static final Type<ShowToastPayload> TYPE =
+public record DialogFinishedPayload(String dialogId) implements CustomPacketPayload {
+    public static final Type<DialogFinishedPayload> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath(
                     CityHeroesMod.MOD_ID,
-                    "show_toast"));
+                    "dialog_finished"));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, ShowToastPayload> STREAM_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, DialogFinishedPayload> STREAM_CODEC =
             StreamCodec.composite(
                     ByteBufCodecs.STRING_UTF8,
-                    ShowToastPayload::title,
-                    ByteBufCodecs.STRING_UTF8,
-                    ShowToastPayload::message,
-                    ByteBufCodecs.STRING_UTF8,
-                    ShowToastPayload::questId,
+                    DialogFinishedPayload::dialogId,
 
-                    ShowToastPayload::new
+                    DialogFinishedPayload::new
             );
 
     @Override

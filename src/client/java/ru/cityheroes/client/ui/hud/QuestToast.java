@@ -13,16 +13,14 @@ import net.minecraft.util.FormattedCharSequence;
 import java.util.List;
 
 public class QuestToast implements Toast {
-
     private static final Identifier BACKGROUND =
             Identifier.withDefaultNamespace("toast/system");
 
     private static final int MAX_LINE_SIZE = 200;
     private static final int LINE_HEIGHT = 12;
-    private static final int MARGIN = 10;
     private static final int TEXT_X = 18;
 
-    private final Object token = new Object();
+    private final String questId;
 
     private List<FormattedCharSequence> titleLines;
     private List<FormattedCharSequence> messageLines;
@@ -32,9 +30,10 @@ public class QuestToast implements Toast {
 
     private int width;
 
-    public QuestToast(Component title, Component message) {
+    public QuestToast(String questId, Component title, Component message) {
         this.titleLines = split(title);
         this.messageLines = message == null ? List.of() : split(message);
+        this.questId = questId;
         recalcWidth();
     }
 
@@ -42,10 +41,8 @@ public class QuestToast implements Toast {
         return Minecraft.getInstance().font.split(text, MAX_LINE_SIZE);
     }
 
-    // ===================== SHOW / HIDE =====================
-
-    public static QuestToast show(ToastManager manager, Component title, Component message) {
-        QuestToast toast = new QuestToast(title, message);
+    public static QuestToast show(ToastManager manager, String questId, Component title, Component message) {
+        QuestToast toast = new QuestToast(questId, title, message);
         manager.addToast(toast);
         toast.wantedVisibility = Visibility.SHOW;
         return toast;
@@ -68,13 +65,8 @@ public class QuestToast implements Toast {
         }
     }
 
-    // ===================== RENDER =====================
-
     @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics,
-                                   Font font,
-                                   long timeVisible) {
-
+    public void extractRenderState(GuiGraphicsExtractor graphics, Font font, long timeVisible) {
         int height = height();
 
         graphics.blitSprite(
@@ -114,8 +106,6 @@ public class QuestToast implements Toast {
         }
     }
 
-    // ===================== SIZE =====================
-
     public int width() {
         return width;
     }
@@ -144,6 +134,6 @@ public class QuestToast implements Toast {
 
     @Override
     public Object getToken() {
-        return token;
+        return questId;
     }
 }

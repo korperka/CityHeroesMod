@@ -1,21 +1,23 @@
 package ru.cityheroes.client.ui.widgets;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.MultiLineTextWidget;
-import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.sounds.SoundEvents;
 import org.jspecify.annotations.NonNull;
+import ru.cityheroes.packet.DialogFinishedPayload;
 
 import java.util.List;
 
 public class TypewriterWidget extends MultiLineTextWidget {
     private final List<Component> phrases;
+    private final String dialogId;
     private int currentPhraseIndex;
     private int visibleCharacters;
 
-    public TypewriterWidget(int x, int y, int width, int height, List<Component> phrases) {
+    public TypewriterWidget(int x, int y, int width, int height, String dialogId, List<Component> phrases) {
         super(x, y, phrases.getFirst(), Minecraft.getInstance().font);
 
         setMaxWidth(width);
@@ -23,6 +25,7 @@ public class TypewriterWidget extends MultiLineTextWidget {
         this.phrases = phrases;
         this.visibleCharacters = 0;
         this.currentPhraseIndex = 0;
+        this.dialogId = dialogId;
     }
 
     public void completePhrase() {
@@ -34,7 +37,11 @@ public class TypewriterWidget extends MultiLineTextWidget {
             completePhrase();
             return;
         }
-        if(currentPhraseIndex >= phrases.size() - 1) return;
+        if(currentPhraseIndex >= phrases.size() - 1) {
+            ClientPlayNetworking.send(new DialogFinishedPayload(dialogId));
+            Minecraft.getInstance().gui.setScreen(null);
+            return;
+        }
 
         currentPhraseIndex++;
         visibleCharacters = 0;

@@ -1,8 +1,9 @@
-package ru.cityheroes.quests;
+package ru.cityheroes.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
+import ru.cityheroes.quests.QuestState;
 
 import java.util.HashMap;
 import java.util.Map;
