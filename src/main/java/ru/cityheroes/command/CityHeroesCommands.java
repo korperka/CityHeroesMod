@@ -14,8 +14,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.Permission;
 import net.minecraft.server.permissions.PermissionLevel;
 import net.minecraft.world.entity.EntitySpawnReason;
+import ru.cityheroes.dialogs.DialogManager;
 import ru.cityheroes.entity.CustomNpc;
 import ru.cityheroes.npc.NpcManager;
+import ru.cityheroes.quests.QuestManager;
 import ru.cityheroes.registry.ModEntityTypes;
 
 public final class CityHeroesCommands {
@@ -37,7 +39,21 @@ public final class CityHeroesCommands {
                                                         .executes(CityHeroesCommands::spawnNpc)
                                         )
                         )
+                        .then(
+                                Commands.literal("update")
+                                        .executes(CityHeroesCommands::updateData)
+                        )
         );
+    }
+
+    private static int updateData(CommandContext<CommandSourceStack> context) {
+        DialogManager.loadDialogs();
+        QuestManager.loadQuests();
+        NpcManager.loadNpcs();
+
+        context.getSource().sendSuccess(() -> Component.literal("Квесты перезагружены"), false);
+
+        return Command.SINGLE_SUCCESS;
     }
 
     private static int spawnNpc(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {

@@ -24,6 +24,7 @@ public class CityHeroesMod implements ModInitializer {
 		DialogManager.loadDialogs();
 		QuestManager.loadQuests();
 		NpcManager.loadNpcs();
+		QuestManager.registerHandler();
 
 		CommandRegistrationCallback.EVENT.register(
 				(dispatcher, registryAccess, environment) ->

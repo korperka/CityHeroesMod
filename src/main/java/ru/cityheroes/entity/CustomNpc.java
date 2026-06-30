@@ -1,7 +1,9 @@
 package ru.cityheroes.entity;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,6 +29,7 @@ import ru.cityheroes.packet.OpenDialogPayload;
 import ru.cityheroes.quests.Quest;
 import ru.cityheroes.quests.QuestManager;
 import ru.cityheroes.quests.QuestState;
+import ru.cityheroes.quests.objective.interfaces.ImmediateQuestObjective;
 
 import java.util.List;
 
@@ -35,7 +38,6 @@ public class CustomNpc extends PathfinderMob {
             SynchedEntityData.defineId(CustomNpc.class, EntityDataSerializers.STRING);
 
     public CustomNpc(EntityType<? extends PathfinderMob> entityType, Level level) {
-        //TODO
         this(entityType, level, "sample");
     }
 
@@ -66,32 +68,47 @@ public class CustomNpc extends PathfinderMob {
             return InteractionResult.SUCCESS;
         }
 
-        String availableQuestId = null;
+        String nextQuestId = null;
 
         for (String questId : npcQuests) {
+            Quest quest = QuestManager.getQuestById(questId);
             QuestState state = data.getState(questId);
 
-            if (state == QuestState.IN_PROGRESS) {
-                Quest quest = QuestManager.getQuestById(questId);
+            switch (state) {
+                case IN_PROGRESS -> {
+                    if (quest.checkCompleted(player)) {
+                        data.putState(questId, QuestState.COMPLETED);
+                        ServerPlayNetworking.send(serverPlayer, new HideToastPayload(questId));
+                    }
 
-                if(quest.checkCompleted(player)) {
-                    data.putState(questId, QuestState.COMPLETED);
-                    ServerPlayNetworking.send(serverPlayer, new HideToastPayload(questId));
+                    openDialog(serverPlayer, quest);
+                    return InteractionResult.SUCCESS;
                 }
 
-                openDialog(serverPlayer, quest);
+                case COMPLETED -> {
+                    openDialog(serverPlayer, quest);
+                    data.putState(questId, QuestState.CHECKED);
+                    return InteractionResult.SUCCESS;
+                }
 
-                return InteractionResult.SUCCESS;
-            }
+                case NOT_STARTED -> {
+                    if (nextQuestId == null) {
+                        nextQuestId = questId;
+                    }
+                }
 
-            if (availableQuestId == null && (state == null || state == QuestState.NOT_STARTED)) {
-                availableQuestId = questId;
+                case CHECKED -> { }
             }
         }
 
-        if (availableQuestId != null) {
-            Quest quest = QuestManager.getQuestById(availableQuestId);
-            openDialog(serverPlayer, quest);
+        if (nextQuestId != null) {
+            openDialog(serverPlayer, QuestManager.getQuestById(nextQuestId));
+        } else {
+            serverPlayer.sendSystemMessage(
+                    Component.literal("Кажется, ему больше нечего тебе сказать...")
+                            .withColor(TextColor.GRAY)
+                            .withStyle(ChatFormatting.ITALIC)
+            );
         }
 
         return InteractionResult.SUCCESS;
@@ -99,10 +116,15 @@ public class CustomNpc extends PathfinderMob {
 
     private void openDialog(ServerPlayer player, Quest quest) {
         Dialog dialog = quest.getCurrentDialog(player);
+        PlayerQuestData data = player.getAttached(ModAttachments.QUEST_DATA);
+        if(data == null) return;
+
+        String questId = QuestManager.getQuestByDialog(dialog.getId()).getId();
+        boolean showHint = data.getState(questId) == QuestState.NOT_STARTED;
 
         ServerPlayNetworking.send(
                 player,
-                new OpenDialogPayload(dialog.getId(), getId())
+                new OpenDialogPayload(dialog.getId(), getId(), showHint)
         );
     }
 

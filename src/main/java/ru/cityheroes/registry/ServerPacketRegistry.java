@@ -38,6 +38,8 @@ public class ServerPacketRegistry {
 
                     if(data.getState(questId) == QuestState.NOT_STARTED) {
                         data.putState(questId, QuestState.IN_PROGRESS);
+                        if(!quest.isShowToast()) return;
+
                         ServerPlayNetworking.send(player, new ShowToastPayload("Активное задание: ", quest.getName(), questId));
                     }
                 }

@@ -1,4 +1,4 @@
-package ru.cityheroes.quests.objectives;
+package ru.cityheroes.quests.objective;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +7,10 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import ru.cityheroes.quests.QuestObjective;
+import ru.cityheroes.quests.objective.interfaces.TalkQuestObjective;
 
 @Getter @Setter
-public class ObtainItemObjective implements QuestObjective {
+public class ObtainItemObjective implements TalkQuestObjective {
     private String item;
     private int count;
 

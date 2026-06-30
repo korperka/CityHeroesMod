@@ -25,6 +25,7 @@ public class NpcManager {
     }
 
     public static void loadNpcs() {
+        npcs.clear();
         ObjectMapper mapper = new ObjectMapper();
 
         try (InputStream stream = QuestManager.class.getResourceAsStream(String.format("/assets/%s/quests/npcs.json", CityHeroesMod.MOD_ID))) {

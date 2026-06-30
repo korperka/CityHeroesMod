@@ -1,58 +1,15 @@
 [
   {
-    "id": "mushrooms",
-    "name": "Собрать 16 мухоморов",
+    "id": "registration",
+    "name": "Написать ваше имя в чат",
     "objective": {
-      "type": "obtain_item",
-      "item": "minecraft:red_mushroom",
-      "count": 16
+      "type": "write_name"
     },
     "dialogs": {
-      "NOT_STARTED": "mushrooms.start",
-      "IN_PROGRESS": "mushrooms.progress",
-      "COMPLETED": "mushrooms.complete"
-    }
-  },
-  {
-    "id": "logs",
-    "name": "Собрать 32 дубовых бревна",
-    "objective": {
-      "type": "obtain_item",
-      "item": "minecraft:oak_log",
-      "count": 32
+      "NOT_STARTED": "reception.registration.start",
+      "IN_PROGRESS": "reception.registration.progress",
+      "COMPLETED": "reception.registration.complete"
     },
-    "dialogs": {
-      "NOT_STARTED": "logs.start",
-      "IN_PROGRESS": "logs.progress",
-      "COMPLETED": "logs.complete"
-    }
-  },
-  {
-    "id": "bread",
-    "name": "Собрать 8 буханок хлеба",
-    "objective": {
-      "type": "obtain_item",
-      "item": "minecraft:bread",
-      "count": 8
-    },
-    "dialogs": {
-      "NOT_STARTED": "bread.start",
-      "IN_PROGRESS": "bread.progress",
-      "COMPLETED": "bread.complete"
-    }
-  },
-  {
-    "id": "repair_shop",
-    "name": "Собрать 32 дубовых бревна",
-    "objective": {
-      "type": "obtain_item",
-      "item": "minecraft:oak_log",
-      "count": 32
-    },
-    "dialogs": {
-      "NOT_STARTED": "repair_shop.start",
-      "IN_PROGRESS": "repair_shop.progress",
-      "COMPLETED": "repair_shop.complete"
-    }
+    "showToast": false
   }
 ]

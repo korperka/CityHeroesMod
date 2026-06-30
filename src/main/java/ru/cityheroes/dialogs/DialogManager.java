@@ -20,6 +20,7 @@ public class DialogManager {
     }
 
     public static void loadDialogs() {
+        dialogs.clear();
         ObjectMapper mapper = new ObjectMapper();
 
         try (InputStream stream = DialogManager.class.getResourceAsStream(String.format("/assets/%s/quests/dialogs.json", CityHeroesMod.MOD_ID))) {

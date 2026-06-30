@@ -9,6 +9,8 @@ import ru.cityheroes.data.ModAttachments;
 import ru.cityheroes.data.PlayerQuestData;
 import ru.cityheroes.dialogs.Dialog;
 import ru.cityheroes.dialogs.DialogManager;
+import ru.cityheroes.quests.objective.interfaces.QuestObjective;
+import ru.cityheroes.quests.objective.interfaces.TalkQuestObjective;
 
 import java.util.Map;
 
@@ -21,9 +23,10 @@ public class Quest {
     @JsonIgnore
     private QuestState state;
     private Map<QuestState, String> dialogs;
+    private boolean showToast;
 
     public boolean checkCompleted(Player player) {
-        return objective.checkCompleted(player);
+        return objective instanceof TalkQuestObjective talkObjective && talkObjective.checkCompleted(player);
     }
 
     public Dialog getCurrentDialog(Player player) {
