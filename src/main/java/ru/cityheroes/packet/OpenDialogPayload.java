@@ -7,7 +7,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import ru.cityheroes.CityHeroesMod;
 
-public record OpenDialogPayload(String dialogId, int entityId, boolean showHint) implements CustomPacketPayload {
+public record OpenDialogPayload(String dialogId, int entityId, boolean showHint, String playerName) implements CustomPacketPayload {
     public static final Type<OpenDialogPayload> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath(
                     CityHeroesMod.MOD_ID,
@@ -21,6 +21,8 @@ public record OpenDialogPayload(String dialogId, int entityId, boolean showHint)
                     OpenDialogPayload::entityId,
                     ByteBufCodecs.BOOL,
                     OpenDialogPayload::showHint,
+                    ByteBufCodecs.STRING_UTF8,
+                    OpenDialogPayload::playerName,
 
                     OpenDialogPayload::new
             );

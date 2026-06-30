@@ -73,6 +73,12 @@ public final class CityHeroesCommands {
         npc.setNpcId(npcId);
         npc.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
 
+        float yaw = Math.round(player.getYRot() / 45.0F) * 45.0F;
+        npc.setYRot(yaw);
+        npc.setYHeadRot(yaw);
+        npc.setYBodyRot(yaw);
+        npc.setXRot(0.0F);
+
         npc.finalizeSpawn(
                 level,
                 level.getCurrentDifficultyAt(pos),

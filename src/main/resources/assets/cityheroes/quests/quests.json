@@ -1,7 +1,7 @@
 [
   {
     "id": "registration",
-    "name": "Написать ваше имя в чат",
+    "name": "Напишите ваше имя в чат",
     "objective": {
       "type": "write_name"
     },
@@ -10,6 +10,52 @@
       "IN_PROGRESS": "reception.registration.progress",
       "COMPLETED": "reception.registration.complete"
     },
-    "showToast": false
+    "showToast": true
+  },
+
+  {
+    "id": "obtain_diamond",
+    "name": "Добудьте алмаз",
+    "objective": {
+      "type": "obtain_item",
+      "item": "minecraft:diamond"
+    },
+    "dialogs": {
+      "NOT_STARTED": "goracionewport.obtain.start",
+      "IN_PROGRESS": "goracionewport.obtain.progress",
+      "COMPLETED": "goracionewport.obtain.complete"
+    },
+    "showToast": true
+  },
+
+  {
+    "id": "destroy_stick",
+    "name": "Избавьтесь от палки",
+    "objective": {
+      "type": "destroy_item",
+      "item": "minecraft:stick"
+    },
+    "dialogs": {
+      "NOT_STARTED": "iamkoldun.destroy.start",
+      "IN_PROGRESS": "iamkoldun.destroy.progress",
+      "COMPLETED": "iamkoldun.destroy.complete"
+    },
+    "showToast": true
+  },
+
+  {
+    "id": "chat_skebob",
+    "name": "Напишите слово \"скебоб\"",
+    "objective": {
+      "type": "chat_message",
+      "message": "скебоб",
+      "ignoreCase": true
+    },
+    "dialogs": {
+      "NOT_STARTED": "korperka.chat.start",
+      "IN_PROGRESS": "korperka.chat.progress",
+      "COMPLETED": "korperka.chat.complete"
+    },
+    "showToast": true
   }
 ]

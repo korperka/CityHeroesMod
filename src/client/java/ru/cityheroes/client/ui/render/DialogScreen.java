@@ -22,13 +22,15 @@ public class DialogScreen extends Screen {
     private final int entityId;
     private final String dialogId;
     private final boolean showHint;
+    private final String playerName;
 
-    public DialogScreen(String dialogId, int entityId, boolean showHint) {
+    public DialogScreen(String dialogId, int entityId, boolean showHint, String playerName) {
         super(Component.empty());
 
         this.dialogId = dialogId;
         this.entityId = entityId;
         this.showHint = showHint;
+        this.playerName = playerName;
     }
 
     @Override
@@ -40,7 +42,9 @@ public class DialogScreen extends Screen {
 
         text = new TypewriterWidget(left + TEXTBOX_X, top + TEXTBOX_Y, TEXTBOX_WIDTH, TEXTBOX_HEIGHT,
                 dialogId,
-                DialogManager.getDialogs().get(dialogId).getPhrases().stream().map(s -> (Component) Component.literal(s)).toList());
+                DialogManager.getDialogs().get(dialogId).getPhrases().stream().map(s -> (Component) Component.literal(s)).toList(),
+                playerName
+        );
         addRenderableWidget(text);
     }
 
@@ -80,7 +84,6 @@ public class DialogScreen extends Screen {
                 45,
                 new Vector3f(0, 1.22f, 0),
                 new Quaternionf()
-                        .rotateY((float) Math.PI)
                         .rotateZ((float) Math.PI),
                 null,
                 x,

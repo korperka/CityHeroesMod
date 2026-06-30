@@ -15,20 +15,6 @@ import ru.cityheroes.npc.NpcDto;
 import ru.cityheroes.npc.NpcManager;
 
 public class CustomNpcRenderer extends LivingEntityRenderer<CustomNpc, AvatarRenderState, PlayerModel> {
-    //TODO
-    private static final PlayerSkin NPC_SKIN =
-            PlayerSkin.insecure(
-                    new ClientAsset.ResourceTexture(
-                            Identifier.fromNamespaceAndPath(
-                                    CityHeroesMod.MOD_ID,
-                                    "entity/npc"
-                            )
-                    ),
-                    null,
-                    null,
-                    PlayerModelType.WIDE
-            );
-
     public CustomNpcRenderer(EntityRendererProvider.Context context) {
         super(context, new PlayerModel(context.bakeLayer(ModelLayers.PLAYER), false), 0.5f);
     }

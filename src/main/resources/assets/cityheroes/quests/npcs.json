@@ -14,5 +14,32 @@
     "quests": [
       "registration"
     ]
+  },
+  {
+    "id": "goracionewport",
+    "displayName": "Горацио",
+    "skinPath": "cityheroes:entity/goracionewport",
+    "modelType": "WIDE",
+    "quests": [
+      "obtain_diamond"
+    ]
+  },
+  {
+    "id": "iamkoldun",
+    "displayName": "Колдун",
+    "skinPath": "cityheroes:entity/iamkoldun",
+    "modelType": "SLIM",
+    "quests": [
+      "destroy_stick"
+    ]
+  },
+  {
+    "id": "korperka",
+    "displayName": "Корперка",
+    "skinPath": "cityheroes:entity/korperka",
+    "modelType": "SLIM",
+    "quests": [
+      "chat_skebob"
+    ]
   }
 ]

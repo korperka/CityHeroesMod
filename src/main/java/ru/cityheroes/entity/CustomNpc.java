@@ -10,10 +10,14 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
@@ -44,7 +48,6 @@ public class CustomNpc extends PathfinderMob {
     public CustomNpc(EntityType<? extends PathfinderMob> entityType, Level level, String npcId) {
         super(entityType, level);
 
-        this.setNoAi(true);
         this.setInvulnerable(true);
         this.setSilent(true);
 
@@ -124,7 +127,7 @@ public class CustomNpc extends PathfinderMob {
 
         ServerPlayNetworking.send(
                 player,
-                new OpenDialogPayload(dialog.getId(), getId(), showHint)
+                new OpenDialogPayload(dialog.getId(), getId(), showHint, data.getName())
         );
     }
 
@@ -167,5 +170,22 @@ public class CustomNpc extends PathfinderMob {
     public @NonNull Component getDisplayName() {
         NpcDto npcDto = NpcManager.getNpc(getNpcId());
         return npcDto == null ? Component.empty() : Component.literal(npcDto.getDisplayName());
+    }
+
+    @Override
+    protected void registerGoals() {
+        goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, 10));
+//        goalSelector.addGoal(2, new RandomLookAroundGoal(this));
+    }
+
+    @Override
+    public void aiStep() {
+
+        super.aiStep();
+    }
+
+    @Override
+    protected float getKnockback(Entity target, DamageSource damageSource) {
+        return 0;
     }
 }
