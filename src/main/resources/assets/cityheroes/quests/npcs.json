@@ -1,42 +1,27 @@
 [
   {
-    "id": "sample",
-    "displayName": "Sample NPC",
-    "skinPath": "cityheroes:entity/npc",
-    "modelType": "WIDE",
-    "quests": []
-  },
-  {
     "id": "reception_girl",
-    "displayName": "Регистраторша участников",
-    "skinPath": "cityheroes:entity/arniks",
+    "displayName": "Ресепшн",
+    "skinPath": "cityheroes:entity/girl1",
     "modelType": "SLIM",
     "quests": [
       "registration"
     ]
   },
   {
-    "id": "goracionewport",
-    "displayName": "Горацио",
-    "skinPath": "cityheroes:entity/goracionewport",
+    "id": "org1",
+    "displayName": "Организатор 1",
+    "skinPath": "cityheroes:entity/boy1",
     "modelType": "WIDE",
     "quests": [
-      "obtain_diamond"
+      "find_org_1",
+      "sort_chairs"
     ]
   },
   {
     "id": "iamkoldun",
     "displayName": "Колдун",
     "skinPath": "cityheroes:entity/iamkoldun",
-    "modelType": "SLIM",
-    "quests": [
-      "destroy_stick"
-    ]
-  },
-  {
-    "id": "korperka",
-    "displayName": "Корперка",
-    "skinPath": "cityheroes:entity/korperka",
     "modelType": "SLIM",
     "quests": [
       "chat_skebob"

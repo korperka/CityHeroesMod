@@ -7,6 +7,6 @@ import java.util.List;
 
 @Getter @Setter
 public class Dialog {
-    private String id;
+    private String id = "";
     private List<String> phrases;
 }

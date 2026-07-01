@@ -1,4 +1,4 @@
-package ru.cityheroes.npc;
+package ru.cityheroes.dto;
 
 import lombok.Getter;
 import lombok.Setter;

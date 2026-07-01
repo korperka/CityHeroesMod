@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import ru.cityheroes.CityHeroesMod;
+import ru.cityheroes.dto.NpcDto;
 import ru.cityheroes.quests.QuestManager;
 
 import java.io.IOException;

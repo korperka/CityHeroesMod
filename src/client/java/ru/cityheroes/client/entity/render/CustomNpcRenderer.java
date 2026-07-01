@@ -9,9 +9,8 @@ import net.minecraft.core.ClientAsset;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.PlayerModelType;
 import net.minecraft.world.entity.player.PlayerSkin;
-import ru.cityheroes.CityHeroesMod;
 import ru.cityheroes.entity.CustomNpc;
-import ru.cityheroes.npc.NpcDto;
+import ru.cityheroes.dto.NpcDto;
 import ru.cityheroes.npc.NpcManager;
 
 public class CustomNpcRenderer extends LivingEntityRenderer<CustomNpc, AvatarRenderState, PlayerModel> {

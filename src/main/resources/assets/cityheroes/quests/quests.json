@@ -12,37 +12,56 @@
     },
     "showToast": true
   },
-
   {
-    "id": "obtain_diamond",
-    "name": "Добудьте алмаз",
+    "id": "dressroom",
+    "name": "Пройдите в раздевалку",
+    "objective": {
+      "type": "reach_location",
+      "location": {
+        "x": 0,
+        "y": 64,
+        "z": 0
+      },
+      "radius": 8
+    },
+    "dialogs": {
+      "NOT_STARTED": "reception.registration.complete"
+    },
+    "showToast": true,
+    "assignedQuestId": "find_org_1"
+  },
+  {
+    "id": "find_org_1",
+    "name": "Найдите организатора и поговорите с ним",
+    "objective": {
+      "type": "reach_location",
+      "location": {
+        "x": 50,
+        "y": 64,
+        "z": 0
+      },
+      "radius": 8
+    },
+    "dialogs": {
+      "COMPLETED": "org.chairs.start"
+    },
+    "showToast": true
+  },
+  {
+    "id": "sort_chairs",
+    "name": "Расставьте стулья",
     "objective": {
       "type": "obtain_item",
-      "item": "minecraft:diamond"
+      "item": "minecraft:diamond",
+      "count": 8
     },
     "dialogs": {
-      "NOT_STARTED": "goracionewport.obtain.start",
-      "IN_PROGRESS": "goracionewport.obtain.progress",
-      "COMPLETED": "goracionewport.obtain.complete"
+      "NOT_STARTED": "org.chairs.start",
+      "IN_PROGRESS": "org.chairs.progress",
+      "COMPLETED": "org.chairs.complete"
     },
     "showToast": true
   },
-
-  {
-    "id": "destroy_stick",
-    "name": "Избавьтесь от палки",
-    "objective": {
-      "type": "destroy_item",
-      "item": "minecraft:stick"
-    },
-    "dialogs": {
-      "NOT_STARTED": "iamkoldun.destroy.start",
-      "IN_PROGRESS": "iamkoldun.destroy.progress",
-      "COMPLETED": "iamkoldun.destroy.complete"
-    },
-    "showToast": true
-  },
-
   {
     "id": "chat_skebob",
     "name": "Напишите слово \"скебоб\"",
@@ -52,9 +71,9 @@
       "ignoreCase": true
     },
     "dialogs": {
-      "NOT_STARTED": "korperka.chat.start",
-      "IN_PROGRESS": "korperka.chat.progress",
-      "COMPLETED": "korperka.chat.complete"
+      "NOT_STARTED": "iamkoldun.chat.start",
+      "IN_PROGRESS": "iamkoldun.chat.progress",
+      "COMPLETED": "iamkoldun.chat.complete"
     },
     "showToast": true
   }

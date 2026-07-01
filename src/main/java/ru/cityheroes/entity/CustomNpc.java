@@ -17,7 +17,6 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
@@ -26,14 +25,12 @@ import org.jspecify.annotations.NonNull;
 import ru.cityheroes.data.ModAttachments;
 import ru.cityheroes.data.PlayerQuestData;
 import ru.cityheroes.dialogs.Dialog;
-import ru.cityheroes.npc.NpcDto;
+import ru.cityheroes.dto.NpcDto;
 import ru.cityheroes.npc.NpcManager;
-import ru.cityheroes.packet.HideToastPayload;
 import ru.cityheroes.packet.OpenDialogPayload;
 import ru.cityheroes.quests.Quest;
 import ru.cityheroes.quests.QuestManager;
 import ru.cityheroes.quests.QuestState;
-import ru.cityheroes.quests.objective.interfaces.ImmediateQuestObjective;
 
 import java.util.List;
 
@@ -81,7 +78,7 @@ public class CustomNpc extends PathfinderMob {
                 case IN_PROGRESS -> {
                     if (quest.checkCompleted(player)) {
                         data.putState(questId, QuestState.COMPLETED);
-                        ServerPlayNetworking.send(serverPlayer, new HideToastPayload(questId));
+                        QuestManager.syncToasts(serverPlayer);
                     }
 
                     openDialog(serverPlayer, quest);
@@ -91,6 +88,8 @@ public class CustomNpc extends PathfinderMob {
                 case COMPLETED -> {
                     openDialog(serverPlayer, quest);
                     data.putState(questId, QuestState.CHECKED);
+                    QuestManager.applyAssignedQuest(serverPlayer, quest);
+
                     return InteractionResult.SUCCESS;
                 }
 
@@ -180,7 +179,6 @@ public class CustomNpc extends PathfinderMob {
 
     @Override
     public void aiStep() {
-
         super.aiStep();
     }
 

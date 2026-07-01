@@ -6,11 +6,11 @@ import lombok.Getter;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import ru.cityheroes.CityHeroesMod;
 import ru.cityheroes.data.ModAttachments;
 import ru.cityheroes.data.PlayerQuestData;
-import ru.cityheroes.packet.HideToastPayload;
+import ru.cityheroes.packet.SyncToastsPayload;
+import ru.cityheroes.packet.ShowToastPayload;
 import ru.cityheroes.quests.event.QuestEvent;
 import ru.cityheroes.quests.objective.interfaces.ImmediateQuestObjective;
 import ru.cityheroes.quests.objective.interfaces.QuestObjective;
@@ -77,7 +77,9 @@ public class QuestManager {
 
             if (handle(immediate, event)) {
                 data.putState(questId, QuestState.COMPLETED);
-                ServerPlayNetworking.send(player, new HideToastPayload(questId));
+
+                applyAssignedQuest(player, quest);
+                syncToasts(player);
             }
         }
     }
@@ -94,5 +96,30 @@ public class QuestManager {
         ServerMessageEvents.CHAT_MESSAGE.register((message, player, params) ->
                 QuestManager.fire(new QuestEvent.ChatEvent(player, message.signedContent()))
         );
+    }
+
+    public static void sendToast(ServerPlayer player, Quest quest) {
+        ServerPlayNetworking.send(player, new ShowToastPayload("Активное задание: ", quest.getName(), quest.getId()));
+    }
+
+    public static void syncToasts(ServerPlayer player) {
+        PlayerQuestData data = player.getAttached(ModAttachments.QUEST_DATA);
+        if (data == null) return;
+
+        List<String> ids = data.getQuests().entrySet().stream()
+                .filter(e -> e.getValue() == QuestState.IN_PROGRESS)
+                .map(Map.Entry::getKey)
+                .toList();
+
+        ServerPlayNetworking.send(player, new SyncToastsPayload(ids));
+    }
+
+    public static void applyAssignedQuest(ServerPlayer player, Quest quest) {
+        PlayerQuestData data = player.getAttached(ModAttachments.QUEST_DATA);
+        Quest assignedQuest = QuestManager.getQuestById(quest.getAssignedQuestId());
+        if(data == null || assignedQuest == null) return;
+
+        data.putState(assignedQuest.getId(), QuestState.IN_PROGRESS);
+        QuestManager.sendToast(player, assignedQuest);
     }
 }

@@ -8,7 +8,7 @@ import ru.cityheroes.data.PlayerQuestData;
 import ru.cityheroes.dialogs.Dialog;
 import ru.cityheroes.dialogs.DialogManager;
 import ru.cityheroes.packet.DialogFinishedPayload;
-import ru.cityheroes.packet.HideToastPayload;
+import ru.cityheroes.packet.SyncToastsPayload;
 import ru.cityheroes.packet.OpenDialogPayload;
 import ru.cityheroes.packet.ShowToastPayload;
 import ru.cityheroes.quests.Quest;
@@ -19,7 +19,7 @@ public class ServerPacketRegistry {
     public static void registerAll() {
         PayloadTypeRegistry.clientboundPlay().register(OpenDialogPayload.TYPE, OpenDialogPayload.STREAM_CODEC);
         PayloadTypeRegistry.clientboundPlay().register(ShowToastPayload.TYPE, ShowToastPayload.STREAM_CODEC);
-        PayloadTypeRegistry.clientboundPlay().register(HideToastPayload.TYPE, HideToastPayload.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SyncToastsPayload.TYPE, SyncToastsPayload.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(DialogFinishedPayload.TYPE, DialogFinishedPayload.STREAM_CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(
@@ -40,7 +40,7 @@ public class ServerPacketRegistry {
                         data.putState(questId, QuestState.IN_PROGRESS);
                         if(!quest.isShowToast()) return;
 
-                        ServerPlayNetworking.send(player, new ShowToastPayload("Активное задание: ", quest.getName(), questId));
+                        QuestManager.sendToast(player, quest);
                     }
                 }
         );

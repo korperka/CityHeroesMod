@@ -2,9 +2,8 @@
   {
     "id": "reception.registration.start",
     "phrases": [
-      "Здравствуйте, добро пожаловать в Точку Кипения!",
-      "Не беспокойтесь, мне уже сказали, что вы организатор",
-      "Для начала нужно пройти регистрацию. Скажите, пожалуйста, как вас зовут?"
+      "Здравствуйте, добро пожаловать в Точку Кипения! ",
+      "Назовите своё имя"
     ]
   },
   {
@@ -13,66 +12,45 @@
       "Напишите в чат ваше имя"
     ]
   },
-  { "id": "reception.registration.complete",
+  {
+    "id": "reception.registration.complete",
     "phrases": [
-      "Отлично, {name}! Регистрация пройдена, теперь вы можете пройти в раздевалку и сложить ваши вещи"
+      "Секунду, {name}... Вижу... Отметила!, теперь вы можете пройти в раздевалку и сложить ваши вещи"
     ]
   },
   {
-    "id": "goracionewport.obtain.start",
+    "id": "org.chairs.start",
     "phrases": [
-      "Привет!",
-      "Добудь для меня один алмаз."
+      "Здравствуй! Твоя первая задача - убрать стулья"
     ]
   },
   {
-    "id": "goracionewport.obtain.progress",
+    "id": "org.chairs.progress",
     "phrases": [
-      "Алмаз уже у тебя?"
+      "Ну же, приступай к работе!"
     ]
   },
   {
-    "id": "goracionewport.obtain.complete",
+    "id": "org.chairs.complete",
     "phrases": [
-      "Отличная работа! Теперь алмаз твой."
-    ]
-  },
-
-  {
-    "id": "iamkoldun.destroy.start",
-    "phrases": [
-      "У тебя есть палка?",
-      "Выбрось её или уничтожь."
+      "Спасибо за помощь!"
     ]
   },
   {
-    "id": "iamkoldun.destroy.progress",
-    "phrases": [
-      "Палки всё ещё не должно быть."
-    ]
-  },
-  {
-    "id": "iamkoldun.destroy.complete",
-    "phrases": [
-      "Замечательно. Теперь её нет."
-    ]
-  },
-
-  {
-    "id": "korperka.chat.start",
+    "id": "iamkoldun.chat.start",
     "phrases": [
       "Напиши в чат слово:",
       "\"скебоб\""
     ]
   },
   {
-    "id": "korperka.chat.progress",
+    "id": "iamkoldun.chat.progress",
     "phrases": [
       "Жду сообщение в чате."
     ]
   },
   {
-    "id": "korperka.chat.complete",
+    "id": "iamkoldun.chat.complete",
     "phrases": [
       "Именно это слово я и хотел увидеть."
     ]

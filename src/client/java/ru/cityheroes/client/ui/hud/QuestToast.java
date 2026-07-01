@@ -41,11 +41,10 @@ public class QuestToast implements Toast {
         return Minecraft.getInstance().font.split(text, MAX_LINE_SIZE);
     }
 
-    public static QuestToast show(ToastManager manager, String questId, Component title, Component message) {
+    public static void show(ToastManager manager, String questId, Component title, Component message) {
         QuestToast toast = new QuestToast(questId, title, message);
         manager.addToast(toast);
         toast.wantedVisibility = Visibility.SHOW;
-        return toast;
     }
 
     public void hide() {

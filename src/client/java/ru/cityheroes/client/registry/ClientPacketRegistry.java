@@ -4,9 +4,11 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.chat.Component;
 import ru.cityheroes.client.ui.hud.QuestToast;
 import ru.cityheroes.client.ui.render.DialogScreen;
-import ru.cityheroes.packet.HideToastPayload;
+import ru.cityheroes.packet.SyncToastsPayload;
 import ru.cityheroes.packet.OpenDialogPayload;
 import ru.cityheroes.packet.ShowToastPayload;
+import ru.cityheroes.quests.Quest;
+import ru.cityheroes.quests.QuestManager;
 
 public class ClientPacketRegistry {
     public static void registerPackets() {
@@ -31,13 +33,24 @@ public class ClientPacketRegistry {
         );
 
         ClientPlayNetworking.registerGlobalReceiver(
-                HideToastPayload.TYPE,
-                (payload, context) -> {
-                    context.client().execute(() -> {
-                        QuestToast toast = context.client().gui.toastManager().getToast(QuestToast.class, payload.questId());
-                        if(toast != null) toast.hide();
-                    });
-                }
+                SyncToastsPayload.TYPE,
+                (payload, context) -> context.client().execute(() -> {
+                    var manager = context.client().gui.toastManager();
+                    manager.clear();
+
+                    for (String id : payload.questIds()) {
+                        Quest quest = QuestManager.getQuestById(id);
+
+                        if (quest != null) {
+                            QuestToast.show(
+                                    manager,
+                                    id,
+                                    Component.literal("Активное задание:"),
+                                    Component.literal(quest.getName())
+                            );
+                        }
+                    }
+                })
         );
     }
 }

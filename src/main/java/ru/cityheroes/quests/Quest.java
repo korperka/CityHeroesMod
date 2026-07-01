@@ -24,6 +24,7 @@ public class Quest {
     private QuestState state;
     private Map<QuestState, String> dialogs;
     private boolean showToast;
+    private String assignedQuestId = "";
 
     public boolean checkCompleted(Player player) {
         return objective instanceof TalkQuestObjective talkObjective && talkObjective.checkCompleted(player);
